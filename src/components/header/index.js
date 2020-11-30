@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link as ReactRouterLink} from "react-router-dom";
 
-import { Background, ButtonLink, Container, Logo, Feature, Text, Picture, Profile, Dropdown, FeatureCallOut, Link, Group} from "./styles/header";
+import { Background, ButtonLink, Container, Logo, Feature, Text, Picture, Profile, Dropdown, FeatureCallOut, Link, Group, Search, SearchIcon, SearchInput, PlayButton} from "./styles/header";
 
 export default function Header({ bg=true, children, ...restProps }) {
   return bg ? <Background {...restProps}>{children}</Background> : children;
@@ -19,6 +19,24 @@ Header.Picture = function HeaderPicture({ src, ...restProps }) {
   return <Picture {...restProps} src={`/images/users/${src}.png`}></Picture>
 }
 
+Header.Search = function HeaderSearch({ searchTerm, setSearchTerm, ...restProps }) {
+  const [searchActive, setSearchActive] = useState(false);
+
+  return (
+    <Search {...restProps}>
+      <SearchIcon onClick={() => setSearchActive(searchActive => !searchActive)}>
+        <img src="/images/icons/search.png" alt="Search"></img>
+      </SearchIcon>
+      <SearchInput 
+        value={searchTerm} 
+        onChange={({ target }) => setSearchTerm(target.value)}
+        placeholder="Search films and series"
+        active = {searchActive}>
+      </SearchInput>
+    </Search>
+  )
+}
+
 Header.Profile = function HeaderProfile({children, ...restProps}) {
   return <Profile {...restProps}>{children}</Profile>
 }
@@ -33,6 +51,10 @@ Header.Text = function HeaderText({ children, ...restProps }) {
 
 Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
   return <Link {...restProps}>{children}</Link>
+}
+
+Header.PlayButton = function HeaderPlayButton({ children, ...restProps}) {
+  return <PlayButton {...restProps}>{children}</PlayButton>
 }
 
 Header.Frame = function HeaderFrame({ children, ...restProps }) {
