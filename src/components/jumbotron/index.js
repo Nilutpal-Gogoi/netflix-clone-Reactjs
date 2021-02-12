@@ -7,7 +7,7 @@ export default function Jumbotron({ children, direction  = "row", ...restProps }
       <Inner  direction={direction}>
         {children}
       </Inner>
-    </Item>
+    </Item> 
   )
 }
 
